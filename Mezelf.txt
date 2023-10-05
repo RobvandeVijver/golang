@@ -1,0 +1,10 @@
+Tip: gebruik 2 terminals (split)
+
+# hiermee zet je de server/docker container aan
+Make logs 
+
+# Test de usecase
+Make usecase
+
+# Als je docker bestanden aanpast moet je dit refreshen in de build
+Make build
