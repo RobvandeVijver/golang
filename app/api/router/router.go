@@ -7,7 +7,7 @@ import (
 
 func ApiHandler() {
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Fprintln(writer, "Welcome to Homepage")
+		fmt.Fprintln(writer, "Welcomes to Homepage")
 	})
 
 	http.HandleFunc("/movies", func(writer http.ResponseWriter, request *http.Request) {

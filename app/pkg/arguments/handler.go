@@ -19,7 +19,9 @@ func ArgumentHandler(db *sql.DB, baseURL string) {
 			AddMovie(db)
 
 		case "list":
+			// get list of movies in var movies
 			ListMovies(db)
+			// print movies to terminal normal
 
 		case "details":
 			GetMovieDetails(db, arguments)
