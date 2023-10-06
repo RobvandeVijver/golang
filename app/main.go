@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	_ "github.com/mattn/go-sqlite3"
 	"hz/api/router"
 	"hz/config"
@@ -13,10 +14,12 @@ var db *sql.DB
 func main() {
 	baseURL := config.GetHost()
 
-	if config.StartDatabaseConnection() {
-		return
+	var err error
+	db, err = sql.Open("sqlite3", "./movies.db")
+	if err != nil {
+		fmt.Println("Error opening database:", err)
 	}
-	defer db.Close(db)
+	defer db.Close()
 
 	router.ApiHandler()
 
