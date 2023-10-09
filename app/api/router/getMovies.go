@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func GetMovies() func(c *gin.Context) {
+func getMovies() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		var db *sql.DB
 		var err error
@@ -36,6 +36,6 @@ func GetMovies() func(c *gin.Context) {
 			movies = append(movies, movieInfo)
 		}
 
-		c.JSON(http.StatusOK, gin.H{"movies": movies})
+		c.JSON(http.StatusOK, movies)
 	}
 }

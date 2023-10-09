@@ -54,7 +54,10 @@ usecase: ## part 1
 
 .PHONY: usecase2
 usecase2: ## part 2
-	@printf "\033[32mRunning some other commands...\033[0m\n"
-	@docker compose exec app curl -S -s localhost:8090/movies
+#	@printf "\033[32mRunning /movies commands...\033[0m\n"
+#	@docker compose exec app curl -S -s localhost:8090/movies
+
+	@printf "\033[32mRunning /movies/tt0034583 commands...\033[0m\n"
+	@docker compose exec app curl -S -s localhost:8090/movies/tt0034583
 
 
