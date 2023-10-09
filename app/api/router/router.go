@@ -1,16 +1,14 @@
 package router
 
 import (
-	"fmt"
-	"net/http"
+	"github.com/gin-gonic/gin"
+	_ "github.com/gin-gonic/gin"
 )
 
 func ApiHandler() {
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Fprintln(writer, "Welcomes to Homepage")
-	})
 
-	http.HandleFunc("/movies", func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Fprintln(writer, "Welcome to Movies Page")
-	})
+	router := gin.Default()
+	router.GET("/movies", GetMovies())
+
+	router.Run(":8090")
 }
