@@ -5,14 +5,12 @@ import (
 	"fmt"
 	_ "github.com/mattn/go-sqlite3"
 	"hz/api/router"
-	"hz/config"
-	arguments2 "hz/pkg/arguments"
+	arguments2 "hz/package/arguments"
 )
 
 var db *sql.DB
 
 func main() {
-	baseURL := config.GetHost()
 
 	var err error
 	db, err = sql.Open("sqlite3", "./movies.db")
@@ -23,5 +21,5 @@ func main() {
 
 	router.ApiHandler()
 
-	arguments2.ArgumentHandler(db, baseURL)
+	arguments2.ArgumentHandler(db)
 }

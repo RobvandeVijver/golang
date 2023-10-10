@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"hz/pkg/models"
+	"hz/package/models"
 )
 
 func GetMovieDetails() func(c *gin.Context) {
@@ -41,6 +41,6 @@ func GetMovieDetails() func(c *gin.Context) {
 			return
 		}
 
-		c.JSON(200, movie)
+		c.IndentedJSON(200, movie)
 	}
 }

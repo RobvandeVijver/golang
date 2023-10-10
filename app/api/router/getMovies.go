@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"hz/pkg/models"
+	"hz/package/models"
 	"net/http"
 )
 
@@ -36,6 +36,6 @@ func getMovies() func(c *gin.Context) {
 			movies = append(movies, movieInfo)
 		}
 
-		c.JSON(http.StatusOK, movies)
+		c.IndentedJSON(http.StatusOK, movies)
 	}
 }

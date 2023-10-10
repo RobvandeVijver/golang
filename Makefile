@@ -33,7 +33,8 @@ sh: ## Run a shell in the docker image
 .PHONY: logs
 logs: ## Show the logs of the docker image
 	@printf "\033[32mShowing logs of docker image...\033[0m\n"
-	@docker compose logs -f app
+	@docker compose logs -f app --tail 5
+
 
 .PHONY: usecase 
 usecase: ## part 1
@@ -54,10 +55,14 @@ usecase: ## part 1
 
 .PHONY: usecase2
 usecase2: ## part 2
-#	@printf "\033[32mRunning /movies commands...\033[0m\n"
-#	@docker compose exec app curl -S -s localhost:8090/movies
+	 @printf "\033[32mRunning /movies commands...\033[0m\n"
+	 @docker compose exec app curl -S -s localhost:8090/movies
 
-	@printf "\033[32mRunning /movies/tt0034583 commands...\033[0m\n"
-	@docker compose exec app curl -S -s localhost:8090/movies/tt0034583
+	# @printf "\033[32mRunning /movies/tt0034583 commands...\033[0m\n"
+	# @docker compose exec app curl -S -s localhost:8090/movies/tt0034583
+
+	# @printf "\033[32mRunning /movies/tt0034583 commands...\033[0m\n"
+	# @docker compose exec app curl -S -s -H "Content-Type: application/json" -X POST -d '{"imdb_id": "tt0368226", "title": "The Room", "rating": 3.7, "year": 2003}' localhost:8090/movies
+
 
 
