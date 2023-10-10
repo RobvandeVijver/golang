@@ -21,5 +21,8 @@ func main() {
 
 	router.ApiHandler()
 
-	arguments2.ArgumentHandler(db)
+	isCommand := arguments2.ArgumentHandler(db)
+	if !isCommand {
+		router.ApiHandler()
+	}
 }

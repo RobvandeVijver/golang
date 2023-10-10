@@ -1,6 +1,8 @@
 package router
 
 import (
+	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
 	"hz/config"
@@ -18,7 +20,6 @@ func ApiHandler() {
 	router.GET("/movies", getMovies())
 	router.GET("/movies/:id", GetMovieDetails())
 	router.POST("/movies", PostMovies())
-	router.PUT("/movies/:id", putMovie())
 	router.DELETE("movies/:id", deleteMovie())
 
 	startRouter(router)
@@ -34,25 +35,44 @@ func startRouter(router *gin.Engine) {
 
 func routerSettings() (*gin.Engine, bool) {
 	gin.SetMode(gin.ReleaseMode)
-	router := gin.New()
+	router := gin.Default()
 	return router, false
 }
 
 func checkNotFound(c *gin.Context) {
 	c.Next()
 	if c.Writer.Status() == 404 {
-		c.JSON(404, gin.H{"message": "404 NOT FOUND"})
-	}
-}
-
-func putMovie() func(c *gin.Context) {
-	return func(c *gin.Context) {
-		c.IndentedJSON(200, gin.H{"message": "PUT METHOD MOVIE"})
+		c.Status(404)
 	}
 }
 
 func deleteMovie() func(c *gin.Context) {
 	return func(c *gin.Context) {
-		c.IndentedJSON(204, gin.H{"message": "DELETE METHOD MOVIE"})
+
+		movieID := c.Param("id")
+
+		var db *sql.DB
+		var err error
+		db, err = sql.Open("sqlite3", "./movies.db")
+		if err != nil {
+			c.Status(500)
+		}
+		defer db.Close()
+
+		query := "DELETE FROM movies WHERE IMDb_id = ?"
+		result, errorDelete := db.Exec(query, movieID)
+		if errorDelete != nil {
+			c.Status(500)
+			return
+		}
+
+		rowsAffected, _ := result.RowsAffected()
+		if rowsAffected == 0 {
+			fmt.Println("No movie found with the IMDb id:", movieID)
+		} else {
+			fmt.Println("Movie deleted")
+		}
+
+		c.Status(204)
 	}
 }

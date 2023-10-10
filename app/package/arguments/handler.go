@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func ArgumentHandler(db *sql.DB) {
+func ArgumentHandler(db *sql.DB) bool {
 	arguments := os.Args[1:]
 
 	if len(arguments) > 0 {
@@ -28,6 +28,9 @@ func ArgumentHandler(db *sql.DB) {
 
 		default:
 			fmt.Println("invalid input")
+			return false
 		}
+		return true
 	}
+	return false
 }

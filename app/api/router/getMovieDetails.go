@@ -15,29 +15,28 @@ func GetMovieDetails() func(c *gin.Context) {
 		var err error
 		db, err = sql.Open("sqlite3", "./movies.db")
 		if err != nil {
-			fmt.Println("Error opening database:", err)
+			c.Status(500)
 		}
 		defer db.Close()
 
 		query := "SELECT * FROM movies WHERE IMDb_id = ?"
 		rows, err := db.Query(query, movieID)
 		if err != nil {
-			fmt.Println("Error accessing movie details:", err.Error())
-			c.JSON(500, gin.H{"error": "Internal Server Error"})
+			c.Status(500)
 			return
 		}
 		defer rows.Close()
 
 		if !rows.Next() {
 			fmt.Printf("No movie found with the IMDb id: %s\n", movieID)
-			c.JSON(404, gin.H{"error": "Movie not found"})
+			c.Status(404)
 			return
 		}
 
 		var movie movie.Movie
 		if err := rows.Scan(&movie.IMDbID, &movie.Title, &movie.Rating, &movie.Year); err != nil {
 			fmt.Println("Error scanning row:", err)
-			c.JSON(500, gin.H{"error": "Internal Server Error"})
+			c.Status(500)
 			return
 		}
 

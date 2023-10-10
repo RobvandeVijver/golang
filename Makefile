@@ -58,11 +58,13 @@ usecase2: ## part 2
 	 @printf "\033[32mRunning /movies commands...\033[0m\n"
 	 @docker compose exec app curl -S -s localhost:8090/movies
 
-	# @printf "\033[32mRunning /movies/tt0034583 commands...\033[0m\n"
-	# @docker compose exec app curl -S -s localhost:8090/movies/tt0034583
+	 @printf "\033[32mRunning /movies/tt0034583 commands...\033[0m\n"
+	 @docker compose exec app curl -S -s localhost:8090/movies/tt0034583
 
-	# @printf "\033[32mRunning /movies/tt0034583 commands...\033[0m\n"
-	# @docker compose exec app curl -S -s -H "Content-Type: application/json" -X POST -d '{"imdb_id": "tt0368226", "title": "The Room", "rating": 3.7, "year": 2003}' localhost:8090/movies
+	 @printf "\033[32mRunning /movies/tt0034583 commands...\033[0m\n"
+	 @docker compose exec app curl -S -s -H "Content-Type: application/json" -X POST -d '{"imdb_id": "tt0368226", "title": "The Room", "rating": 3.7, "year": 2003}' localhost:8090/movies
 
+	@printf "\033[32mRunning localhost:8090/movies/tt0058150 | head -n 1 commands...\033[0m\n"
+	@docker compose exec app curl -i -s -X DELETE localhost:8090/movies/tt0058150 | head -n 1
 
 
