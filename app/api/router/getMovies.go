@@ -19,9 +19,9 @@ func getMovies() func(c *gin.Context) {
 		defer db.Close()
 
 		query := "SELECT * FROM movies"
-		rows, err := db.Query(query)
-		if err != nil {
-			fmt.Println("Error database connection:", err)
+		rows, errorQuery := db.Query(query)
+		if errorQuery != nil {
+			fmt.Println("Error database connection:", errorQuery)
 			return
 		}
 		defer rows.Close()

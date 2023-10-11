@@ -67,4 +67,8 @@ usecase2: ## part 2
 	@printf "\033[32mRunning localhost:8090/movies/tt0058150 | head -n 1 commands...\033[0m\n"
 	@docker compose exec app curl -i -s -X DELETE localhost:8090/movies/tt0058150 | head -n 1
 
+.PHONY: usecase3
+usecase3: ## part 3
+	 @printf "\033[32mRunning *text* commands...\033[0m\n"
+	 @docker compose exec app curl -S -s localhost:8090/movies
 
