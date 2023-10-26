@@ -3,7 +3,7 @@ package arguments
 import (
 	"database/sql"
 	"fmt"
-	"hz/package/models"
+	movie "hz/package/models"
 )
 
 func ListMovies(db *sql.DB) {
@@ -13,7 +13,7 @@ func ListMovies(db *sql.DB) {
 	}
 
 	for _, movie := range movies {
-		fmt.Printf("%s\n", movie.Title)
+		fmt.Printf("%s\n", *movie.Title)
 	}
 }
 
@@ -29,7 +29,7 @@ func getMovies(db *sql.DB) ([]movie.Movie, bool) {
 	var movies []movie.Movie
 	for rows.Next() {
 		var movie movie.Movie
-		if err := rows.Scan(&movie.IMDbID, &movie.Title, &movie.Rating, &movie.Year); err != nil {
+		if err := rows.Scan(&movie.IMDbID, &movie.Title, &movie.Rating, &movie.Year, &movie.Plot); err != nil {
 			fmt.Println("Error scanning the row", err)
 			return nil, true
 		}

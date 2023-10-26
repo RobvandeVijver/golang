@@ -69,6 +69,9 @@ usecase2: ## part 2
 
 .PHONY: usecase3
 usecase3: ## part 3
-	 @printf "\033[32mRunning *text* commands...\033[0m\n"
-	 @docker compose exec app curl -S -s localhost:8090/movies
+	@printf "\033[32mRunning ./main summaries commands...\033[0m\n"
+	@docker compose exec app ./bin/main summaries
+
+
+
 

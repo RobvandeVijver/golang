@@ -19,8 +19,6 @@ func main() {
 	}
 	defer db.Close()
 
-	router.ApiHandler()
-
 	isCommand := arguments2.ArgumentHandler(db)
 	if !isCommand {
 		router.ApiHandler()

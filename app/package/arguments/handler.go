@@ -3,6 +3,7 @@ package arguments
 import (
 	"database/sql"
 	"fmt"
+	"hz/api/router"
 	"os"
 )
 
@@ -25,6 +26,9 @@ func ArgumentHandler(db *sql.DB) bool {
 
 		case "delete":
 			DeleteMovie(db, arguments)
+
+		case "summaries":
+			router.ApiRequest(db)
 
 		default:
 			fmt.Println("invalid input")

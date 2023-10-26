@@ -1,9 +1,10 @@
 package router
 
 import (
+	"hz/config"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
-	"hz/config"
 )
 
 func ApiHandler() {
@@ -12,15 +13,18 @@ func ApiHandler() {
 		return
 	}
 
-	router.Use(checkNotFound)
+	APIRequest(router)
 
-	// PATHS
+	startRouter(router)
+}
+
+func APIRequest(router *gin.Engine) {
+	router.Use(checkNotFound)
+	router.GET("/", Homepage)
 	router.GET("/movies", getMovies())
 	router.GET("/movies/:id", GetMovieDetails())
 	router.POST("/movies", PostMovies())
 	router.DELETE("movies/:id", DeleteMovie())
-
-	startRouter(router)
 }
 
 func startRouter(router *gin.Engine) {

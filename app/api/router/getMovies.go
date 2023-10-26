@@ -3,9 +3,10 @@ package router
 import (
 	"database/sql"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"hz/package/models"
+	movie "hz/package/models"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func getMovies() func(c *gin.Context) {
@@ -18,7 +19,7 @@ func getMovies() func(c *gin.Context) {
 		}
 		defer db.Close()
 
-		query := "SELECT * FROM movies"
+		query := "SELECT IMDb_id, Title, Rating, Year FROM movies"
 		rows, errorQuery := db.Query(query)
 		if errorQuery != nil {
 			fmt.Println("Error database connection:", errorQuery)
@@ -36,6 +37,27 @@ func getMovies() func(c *gin.Context) {
 			movies = append(movies, movieInfo)
 		}
 
-		c.IndentedJSON(http.StatusOK, movies)
+		var simplifiedMovies []struct {
+			IMDbID *string  `json:"imdb_id"`
+			Title  *string  `json:"title"`
+			Rating *float64 `json:"rating"`
+			Year   *string  `json:"year"`
+		}
+
+		for _, m := range movies {
+			simplifiedMovies = append(simplifiedMovies, struct {
+				IMDbID *string  `json:"imdb_id"`
+				Title  *string  `json:"title"`
+				Rating *float64 `json:"rating"`
+				Year   *string  `json:"year"`
+			}{
+				IMDbID: m.IMDbID,
+				Title:  m.Title,
+				Rating: m.Rating,
+				Year:   m.Year,
+			})
+		}
+
+		c.IndentedJSON(http.StatusOK, simplifiedMovies)
 	}
 }

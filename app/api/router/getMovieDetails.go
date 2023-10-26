@@ -3,8 +3,9 @@ package router
 import (
 	"database/sql"
 	"fmt"
+	movie "hz/package/models"
+
 	"github.com/gin-gonic/gin"
-	"hz/package/models"
 )
 
 func GetMovieDetails() func(c *gin.Context) {
@@ -34,12 +35,31 @@ func GetMovieDetails() func(c *gin.Context) {
 		}
 
 		var movie movie.Movie
-		if err := rows.Scan(&movie.IMDbID, &movie.Title, &movie.Rating, &movie.Year); err != nil {
+		if err := rows.Scan(&movie.IMDbID, &movie.Title, &movie.Rating, &movie.Year, &movie.Plot); err != nil {
 			fmt.Println("Error scanning row:", err)
 			c.Status(500)
 			return
 		}
 
-		c.IndentedJSON(200, movie)
+		var simplifiedMovie []struct {
+			IMDbID *string  `json:"imdb_id"`
+			Title  *string  `json:"title"`
+			Rating *float64 `json:"rating"`
+			Year   *string  `json:"year"`
+		}
+
+		simplifiedMovie = append(simplifiedMovie, struct {
+			IMDbID *string  `json:"imdb_id"`
+			Title  *string  `json:"title"`
+			Rating *float64 `json:"rating"`
+			Year   *string  `json:"year"`
+		}{
+			IMDbID: movie.IMDbID,
+			Title:  movie.Title,
+			Rating: movie.Rating,
+			Year:   movie.Year,
+		})
+
+		c.IndentedJSON(200, simplifiedMovie)
 	}
 }
