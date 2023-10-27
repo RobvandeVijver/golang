@@ -19,4 +19,12 @@ Part 3 - Concurrent programming
 Momenteel is er bij de applicatie geen sprake van parallelism er gebeuren niet meerdere processen tegelijkertijd terwijl dit wel zou kunnen. Het zorgen van interfaces zou ervoor zorgen dat verschillende functionaliteiten tegelijkertijd zouden worden uitgevoerd, waardoor de doorloop tijd van functies korter wordt. Ik heb namelijk 1 loop waarin ik ieder ID opvraag en daarop een api request doe, in de toekomst zou ik het veranderen zodat er een interface is die een ID ophaald, een interface die API GET request uitvoerd, interface die het format en een status terug geeft en een interface die het JSON format in de database toevoegd. Doordat in deze architectuur niet gefocust is op beheerbaarheid kost het toevoegen van nieuwe features steeds meer tijd. Ook is het momenteel zo dat er niet duidelijk gewerkt wordt in STATUSSEN. Het is niet altijd duidelijk in welke "staat" de applicatie zich bevind omdat er 1 grote taak bezig is. Ik merk dat de infrastructuur vanaf het eerste moment goed doordacht moet zijn om op lange termijn meer tijd efficientie en begrijpbaarheid te behouden.
 
 
-Part 4 - 
+Part 4 - reactive programming
+Bij dit hoofdstuk beoordeel ik mijn code op: complexiteit, conformiteit, veranderlijkheid en onzichtbaarheid. 
+Complexiteit: De complexiteit is te overzien maar niet optimaal, er is namelijk niet gelet op code volume, het aanduiden van specifieke statussen en er is weinig controle uitgevoerd op de code. Code volume zou geoptimaliseerd kunnen worden, statussen kunnen beter gaangeduid worden door de code beter te splitsen over diverse bestanden. 
+
+conformiteit: De code houdt zich aan conventies en standaarden volgens Svelte en Javascript, maar de code mist commentaar/documentatie om de functionaliteit aan te duiden. Ook de naamgeving van variablenen en function kunnen mogelijk duidelijker door deze te vervangen door een beschrijvende naam, waardoor de bedoelding van de code beter wordt weergeven.
+
+veranderlijkheid: Er is gewerkt met svelte een reactive programming language, ook wordt er een API gebruikt waardoor de website dynamisch wordt bijgewerkt. Om aan te tonen dat dit zo is kun je op de revert list knop drukken, zonder dat de pagina ververst zie je dan dat de lijst is bijgewerkt.
+
+onzichtbaarheid: voor verbetering zou ik CSS-code kunnen plaatsen op 1 centrale plek, hierdoor zou ik de onderhoudbaarheid verbeteren. Ook zou ik de cacheprestaties kunnen verbeteren door externe CSS bestanden te gebruiken (styles.css) deze worden efficiënter gecached door browsers wat de laadtijd van de pagina kan verbeteren.

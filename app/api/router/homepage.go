@@ -7,6 +7,6 @@ import (
 )
 
 func Homepage(c *gin.Context) {
-	redirectURL := "http://127.0.0.1:5500/svelte-app/public/index.html"
-	c.Redirect(http.StatusFound, redirectURL)
+	// Use the Redirect method to redirect to the desired URL
+	c.Redirect(http.StatusFound, "http://localhost:8080")
 }
